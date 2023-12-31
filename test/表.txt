@@ -1,0 +1,109 @@
+
+CREATE TABLE [dbo].[hyn_student_grades](
+	[grade_id] [int] IDENTITY(1,1) NOT NULL,
+	[hyn_student_id] [int] NULL,
+	[course_name] [nvarchar](100) NULL,
+	[grade] [float] NULL,
+	[semester] [nvarchar](50) NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[grade_id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[hyn_user_feedback]    Script Date: 31/12/2023 15:27:55 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[hyn_user_feedback](
+	[hyn_feedback_id] [int] IDENTITY(1,1) NOT NULL,
+	[hyn_user_id] [int] NULL,
+	[hyn_feedback_content] [nvarchar](max) NULL,
+	[hyn_feedback_time] [datetime] NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[hyn_feedback_id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[hyn_user_logs]    Script Date: 31/12/2023 15:27:55 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[hyn_user_logs](
+	[hyn_log_id] [int] IDENTITY(1,1) NOT NULL,
+	[hyn_user_id] [int] NULL,
+	[hyn_action_type] [varchar](50) NULL,
+	[hyn_action_time] [datetime] NULL,
+	[hyn_action_description] [nvarchar](255) NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[hyn_log_id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[hyn_usertable]    Script Date: 31/12/2023 15:27:55 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[hyn_usertable](
+	[hyn_id] [int] IDENTITY(1,1) NOT NULL,
+	[hyn_username] [varchar](50) NOT NULL,
+	[hyn_password] [varchar](50) NOT NULL,
+	[hyn_name] [nvarchar](100) NULL,
+	[hyn_gender] [nvarchar](10) NULL,
+	[hyn_class] [nvarchar](100) NULL,
+	[hyn_address] [nvarchar](100) NULL,
+	[hyn_phone] [varchar](20) NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[hyn_id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[tbGrade]    Script Date: 31/12/2023 15:27:55 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[tbGrade](
+	[stuGradeID] [char](20) NULL,
+	[stuGrade] [char](10) NULL
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[tbStuInfo]    Script Date: 31/12/2023 15:27:55 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[tbStuInfo](
+	[stuNo] [char](20) NOT NULL,
+	[stuName] [char](10) NULL,
+	[stuAdd] [char](100) NULL,
+	[stuMale] [char](4) NULL,
+	[stuGrade] [char](10) NULL,
+	[stuBirth] [char](40) NULL,
+	[stuemail] [char](25) NULL,
+	[stuContact] [char](20) NULL
+) ON [PRIMARY]
+GO
+ALTER TABLE [dbo].[hyn_user_feedback] ADD  DEFAULT (getdate()) FOR [hyn_feedback_time]
+GO
+ALTER TABLE [dbo].[hyn_user_logs] ADD  DEFAULT (getdate()) FOR [hyn_action_time]
+GO
+ALTER TABLE [dbo].[hyn_student_grades]  WITH CHECK ADD FOREIGN KEY([hyn_student_id])
+REFERENCES [dbo].[hyn_usertable] ([hyn_id])
+GO
+ALTER TABLE [dbo].[hyn_user_feedback]  WITH CHECK ADD FOREIGN KEY([hyn_user_id])
+REFERENCES [dbo].[hyn_usertable] ([hyn_id])
+GO
+ALTER TABLE [dbo].[hyn_user_logs]  WITH CHECK ADD FOREIGN KEY([hyn_user_id])
+REFERENCES [dbo].[hyn_usertable] ([hyn_id])
+GO
+USE [master]
+GO
+ALTER DATABASE [hyn] SET  READ_WRITE 
+GO

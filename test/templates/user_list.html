@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>学生列表</h1>
+    <ul>
+    {% for user in user_list %}
+        <li id="user-{{ user['zyf_id'] }}">
+            学生姓名: {{ user['zyf_name'] }} -
+            <a href="{{ url_for('user.user_detail', user_id=user['zyf_id']) }}">查看详情</a>
+            <a href="{{ url_for('user.edit_user', user_id=user['zyf_id']) }}">编辑</a>
+            <a href="#" class="delete-link" data-user-id="{{ user['zyf_id'] }}">删除</a>
+        </li>
+    {% endfor %}
+    </ul>
+    <a href="{{ url_for('user.home') }}" class="btn btn-primary">返回主界面</a>
+    <script>
+        const deleteLinkHandler = async (event) => {
+            event.preventDefault();
+            if (!confirm('确定要删除这个用户吗？')) return;
+
+            const userId = event.target.dataset.userId;
+            try {
+                const response = await fetch('{{ url_for('user.delete_user', user_id='0') }}'.replace('0', userId), {
+                    method: 'POST',
+                    // 在这里添加其他必要的HTTP头或数据
+                });
+                if (response.ok) {
+                    console.log('用户删除成功');
+                    location.reload();
+                } else {
+                    console.error('删除失败');
+                }
+            } catch (error) {
+                console.error('删除过程中发生错误', error);
+            }
+        };
+
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.delete-link').forEach(link => {
+                link.addEventListener('click', deleteLinkHandler);
+            });
+        });
+    </script>
+{% endblock %}

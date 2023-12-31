@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>学生详情</h1>
+    <p>学号: {{ user.zyf_id }}</p>
+    <p>账户名称: {{ user.zyf_username }}</p>
+    <p>性别: {{ user.zyf_gender }}</p>
+    <p>班级: {{ user.zyf_class }}</p>
+    <p>地址: {{ user.zyf_address }}</p>
+    <p>电话: {{ user.zyf_phone }}</p>
+
+    <a href="{{ url_for('user.home') }}" class="btn btn-primary">返回主界面</a>
+{% endblock %}

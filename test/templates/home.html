@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block header %}
+    <h1>学生信息中心</h1>
+{% endblock %}
+
+{% block content %}
+    <a href="{{ url_for('user.user_list') }}" class="btn btn-primary">学生列表</a>
+    <a href="{{ url_for('user.add_user') }}" class="btn btn-secondary">添加学生</a>
+    <a href="{{ url_for('user.logout') }}" class="btn btn-danger">注销</a>
+    <a href="{{ url_for('user.add_grade') }}" class="btn btn-primary">添加学生成绩</a>
+    <a href="{{ url_for('user.view_grades') }}" class="btn btn-secondary">查看学生成绩</a>
+{% endblock %}

@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>用户活动日志</h1>
+    <ul>
+    {% for log in user_logs %}
+        <li>{{ log.zyf_action_time }}: {{ log.zyf_action_description }}</li>
+    {% endfor %}
+    </ul>
+<a href="{{ url_for('user.home') }}" class="btn btn-primary">返回主界面</a>
+{% endblock %}

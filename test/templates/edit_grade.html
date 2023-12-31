@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>编辑学生成绩</h2>
+<form action="{{ url_for('user.edit_grade', grade_id=grade.grade_id) }}" method="post">
+    课程名称：<input type="text" name="course_name" value="{{ grade.course_name }}"><br>
+    成绩：<input type="text" name="grade" value="{{ grade.grade }}"><br>
+    学期：<input type="text" name="semester" value="{{ grade.semester }}"><br>
+    <input type="submit" value="更新成绩">
+</form>
+<a href="{{ url_for('user.home') }}" class="btn btn-primary">返回主界面</a>
+{% endblock %}

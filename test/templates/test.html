@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+<form action="/index" method="post">
+    <input name="username">
+    <input type="submit" value="提交">
+</form>
+
+
+<img src="/static/ascii.jpg" class="pic">
+<img src="{{ url_for('static', filename='ascii.jpg') }}" class="pic">
+
+
+<script>
+    document.cookie = "c_name=777;expires=2023-10-03T09:57:06.000Z";
+</script>
+{% endblock %}

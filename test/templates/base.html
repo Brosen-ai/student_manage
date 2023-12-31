@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+    <style>
+        body {
+            text-align: center;
+        }
+        header, footer {
+            margin-bottom: 20px;
+            margin-top: 20px;
+        }
+        hr {
+            border: 0;
+            height: 1px;
+            background: #333;
+            background-image: linear-gradient(to right, #ccc, #333, #ccc);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <!-- 显示当前界面功能 -->
+        {% block header %}
+        {% endblock %}
+    </header>
+
+    <div>
+        {% block content %}
+        {% endblock %}
+    </div>
+
+    <hr>
+
+    <footer>
+        <!-- 显示当前用户的用户名 -->
+        {% if session.get('user') %}
+            <p>当前用户: {{ session['user']['zyf_name'] }}</p>
+        {% endif %}
+        {% for message in get_flashed_messages() %}
+            <div class="alert">{{ message }}</div>
+        {% endfor %}
+    </footer>
+</body>
+</html>
